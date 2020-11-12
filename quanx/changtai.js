@@ -4,7 +4,7 @@ Quantumult X:
 1 0 * * * https://github.com/doherty88/Scripts/raw/main/quanx/changtai.js, tag=长泰广场
 
 [rewrite_local]
-^https:\/\/api\.techmall\.chamshare\.cn\/wechat\/cardJson url script-request-header https://github.com/doherty88/Scripts/raw/main/quanx/changtai.js
+^https:\/\/api\.techmall\.chamshare\.cn\/daysign\/read url script-request-header https://github.com/doherty88/Scripts/raw/main/quanx/changtai.js
 
 [mitm]
 hostname = api.techmall.chamshare.cn
@@ -25,7 +25,7 @@ if ($cmp.isRequest) {
 
 function GetToken() {
     if ($request && $request.method == "GET") {
-        $cmp.notify("query string:" + $request.qs, "", "")
+        $cmp.notify("url:" + $request.url, "", "")
         var TokenValue = bodyJson.data.access_token
         $cmp.notify("Step 2", "", "")
         if ($cmp.read(accessTokeName) != (undefined || null)) {
