@@ -63,7 +63,7 @@ function Checkin() {
         },
         body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
     };
-    $cmp.post(ctds, function(error, response, data) {
+    $httpClient.put(ctds, function(error, response, data) {
         const result = JSON.parse(data)
         if (!error) {
             if (result.code == 0) {
