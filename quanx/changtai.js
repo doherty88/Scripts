@@ -14,6 +14,11 @@ hostname = api.techmall.chamshare.cn
 const $cmp = compatibility()
 const accessTokeName = 'changtaikey'
 
+function getQueryString(url, item) {
+    var sValue = url.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)", "i"));
+    return sValue ? sValue[1] : sValue;
+}
+
 if ($cmp.isRequest) {
     GetToken()
     $cmp.done()
@@ -25,9 +30,8 @@ if ($cmp.isRequest) {
 
 function GetToken() {
     if ($request && $request.method == "GET") {
-        $cmp.notify("url:" + $request.url, "", "")
-        var TokenValue = bodyJson.data.access_token
-        $cmp.notify("Step 2", "", "")
+        var TokenValue = getQueryString($request.url, 'access_token')
+        $cmp.notify("value:" + TokenValue, "", "")
         if ($cmp.read(accessTokeName) != (undefined || null)) {
             if ($cmp.read(accessTokeName) != TokenValue) {
                 var token = $cmp.write(TokenValue, accessTokeName)
