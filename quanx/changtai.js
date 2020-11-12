@@ -65,25 +65,18 @@ function Checkin() {
     }
     $task.fetch(opts).then(
         (resp) => {
-            $cmp.notify(resp.body, "", "")
             const result = JSON.parse(resp.body)
-            if (!error) {
-                if (result.code == 0) {
-                    $cmp.notify(appName, "", "签到成功！🎉")
-                } else if (result.code == 1001) {
-                    $cmp.notify(appName, "",  "重复签到！😊")
-                } else if (result.code == 2) {
-                    $cmp.notify(appName, "", "Token 失效❗ 请重新获取。️")
-                } else {
-                    console.log("Changtai failed response : \n" + data)
-                    $cmp.notify(appName, "签到失败‼️ 详情请见日志。", data)
-                }
+            if (result.code == 0) {
+                $cmp.notify(appName, "", "签到成功！🎉")
+            } else if (result.code == 1101) {
+                $cmp.notify(appName, "",  "重复签到！😊")
+            } else if (result.code == 2) {
+                $cmp.notify(appName, "", "Token 失效❗ 请重新获取。️")
             } else {
-                $cmp.notify(appName,  "签到接口请求失败，详情请见日志。", error)
+                console.log("Changtai failed response : \n" + result.msg)
+                $cmp.notify(appName, "签到失败‼️ 详情请见日志。", result.msg);
             }
-            // const { statusCode: status, statusCode, headers, body } = resp
-            // callback(null, { status, statusCode, headers, body }, body)
-        },err
+        },
         (err) => {
             $cmp.notify(appName,  "签到接口出错，详情请见日志。", err)
         }
