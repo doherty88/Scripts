@@ -1,13 +1,13 @@
 /*
 Quantumult X:
 [task_local]
-1 0 * * * https://raw.githubusercontent.com/zZPiglet/Task/master/Oclean/Oclean.js, tag=长泰广场
+1 0 * * * https://github.com/doherty88/Scripts/raw/main/quanx/changtai.js, tag=长泰广场
 
 [rewrite_local]
-^https:\/\/api\.techmall\.chamshare\/cn\/login\/ url script-request-header https://raw.githubusercontent.com/zZPiglet/Task/master/Oclean/Oclean.js
+^https:\/\/api\.techmall\.chamshare\/cn\/login\/ url script-request-header https://github.com/doherty88/Scripts/raw/main/quanx/changtai.js
 
 [mitm]
-hostname = mall.oclean.com，api.techmall.chamshare.cn
+hostname = api.techmall.chamshare.cn
 
 */
 
@@ -21,7 +21,7 @@ if ($cmp.isRequest) {
     Checkin()
     $cmp.done()
 }
-// https://api.techmall.chamshare.cn/login/
+
 function GetToken() {
     if ($request && $request.method == "POST") {
         var bodyJson = JSON.parse(request.body)
