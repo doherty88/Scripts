@@ -63,9 +63,10 @@ function Checkin() {
         url: CheckinURL,
         body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
     }
-
+    $cmp.notify("Step 1", "", "")
     $task.fetch(opts).then(
         (resp) => {
+            $cmp.notify("Step 2", "", "")
             const result = JSON.parse(resp.body)
             if (!error) {
                 if (result.code == 0) {
@@ -84,7 +85,9 @@ function Checkin() {
             // const { statusCode: status, statusCode, headers, body } = resp
             // callback(null, { status, statusCode, headers, body }, body)
         },
-        (err) => callback(err)
+        (err) => {
+            $cmp.notify("Step 3", "", "")
+        }
     ) 
 
 }
