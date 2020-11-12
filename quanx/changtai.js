@@ -59,7 +59,7 @@ function Checkin() {
     var data = {};
     data.access_token = $cmp.read(accessTokeName);
     var json = JSON.stringify(data);
-
+    $cmp.notify("Checkin1.5", "", "")
     var xhr = new XMLHttpRequest();
     xhr.open("PUT", CheckinURL, true);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
