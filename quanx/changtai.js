@@ -10,7 +10,6 @@ Quantumult X:
 hostname = api.techmall.chamshare.cn
 
 */
-const re = require("request")
 const $cmp = compatibility()
 const accessTokeName = 'changtaikey'
 const appName = "长泰广场"
@@ -63,7 +62,7 @@ function Checkin() {
         },
         body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
     };
-    re.put(ctds, function(error, response, data) {
+    $http.put(ctds, function(error, response, data) {
         $cmp.notify("response" + data, "", "")
         const result = JSON.parse(data)
         if (!error) {
