@@ -66,7 +66,7 @@ function Checkin() {
     $cmp.notify("Step 1", "", "")
     $task.fetch(opts).then(
         (resp) => {
-            $cmp.notify("Step 2", "", "")
+            $cmp.notify(resp.body, "", "")
             const result = JSON.parse(resp.body)
             if (!error) {
                 if (result.code == 0) {
