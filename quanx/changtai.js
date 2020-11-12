@@ -25,6 +25,7 @@ if ($cmp.isRequest) {
 
 function GetToken() {
     if ($request && $request.method == "POST") {
+        $cmp.notify("body:" + $request.body, "", "")
         var bodyJson = JSON.parse($request.body)
         var TokenValue = bodyJson.data.access_token
         $cmp.notify("Step 2", "", "")
