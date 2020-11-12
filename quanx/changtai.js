@@ -63,7 +63,6 @@ function Checkin() {
         url: CheckinURL,
         body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
     }
-    $cmp.notify("Step 1", "", "")
     $task.fetch(opts).then(
         (resp) => {
             $cmp.notify(resp.body, "", "")
@@ -84,9 +83,9 @@ function Checkin() {
             }
             // const { statusCode: status, statusCode, headers, body } = resp
             // callback(null, { status, statusCode, headers, body }, body)
-        },
+        },err
         (err) => {
-            $cmp.notify("Step 3", "", "")
+            $cmp.notify(appName,  "签到接口出错，详情请见日志。", err)
         }
     ) 
 
