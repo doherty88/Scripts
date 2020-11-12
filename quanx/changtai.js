@@ -55,6 +55,7 @@ function GetToken() {
 }
 
 function Checkin() {
+    $cmp.notify("Checkin", "", "")
     var data = {};
     data.access_token = $cmp.read(accessTokeName);
     var json = JSON.stringify(data);
@@ -62,7 +63,9 @@ function Checkin() {
     var xhr = new XMLHttpRequest();
     xhr.open("PUT", CheckinURL, true);
     xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+    $cmp.notify("Checkin2", "", "")
     xhr.onload = function () {
+        $cmp.notify("onload", "", "")
         var result = JSON.parse(xhr.responseText);
         if (result.code == 0) {
             $cmp.notify(appName, "", "签到成功！🎉")
@@ -79,6 +82,7 @@ function Checkin() {
             $cmp.notify(appName,  "签到接口请求失败，详情请见日志。", "")
         }
     }
+    $cmp.notify("Checkin3", "", "")
     xhr.send(json);
 }
 
