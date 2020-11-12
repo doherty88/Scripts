@@ -10,7 +10,7 @@ Quantumult X:
 hostname = api.techmall.chamshare.cn
 
 */
-
+const re = require("request")
 const $cmp = compatibility()
 const accessTokeName = 'changtaikey'
 const appName = "长泰广场"
@@ -55,31 +55,32 @@ function GetToken() {
 }
 
 function Checkin() {
-    var data = {};
-    data.access_token = $cmp.read(accessTokeName);
-    var json = JSON.stringify(data);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("PUT", CheckinURL, true);
-    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
-    xhr.onload = function () {
-        var result = JSON.parse(xhr.responseText);
-        if (result.code == 0) {
-            $cmp.notify(appName, "", "签到成功！🎉")
-        } else if (result.code == 1001) {
-            $cmp.notify(appName, "",  "重复签到！😊")
-        } else if (result.code == 2) {
-            $cmp.notify(appName, "", "Token 失效❗ 请重新获取。️")
+    const ctds = {
+        url: CheckinURL,
+        headers: {
+            "Host": "api.techmall.chamshare.cn",
+            "content-type": "application/json",
+        },
+        body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
+    };
+    re.put(ctds, function(error, response, data) {
+        $cmp.notify("response" + data, "", "")
+        const result = JSON.parse(data)
+        if (!error) {
+            if (result.code == 0) {
+                $cmp.notify(appName, "", "签到成功！🎉")
+            } else if (result.code == 1001) {
+                $cmp.notify(appName, "",  "重复签到！😊")
+            } else if (result.code == 2) {
+                $cmp.notify(appName, "", "Token 失效❗ 请重新获取。️")
+            } else {
+                console.log("Changtai failed response : \n" + data)
+                $cmp.notify(appName, "签到失败‼️ 详情请见日志。", data)
+            }
         } else {
-            console.log("Changtai failed response : \n" + data)
-            $cmp.notify(appName, "签到失败‼️ 详情请见日志。", data)
+            $cmp.notify(appName,  "签到接口请求失败，详情请见日志。", error)
         }
-
-        if (xhr.status != "200") {
-            $cmp.notify(appName,  "签到接口请求失败，详情请见日志。", "")
-        }
-    }
-    xhr.send(json);
+    })
 }
 
 function compatibility(){const e="undefined"!=typeof $request,t="undefined"!=typeof $httpClient,r="undefined"!=typeof $task,n="undefined"!=typeof $app&&"undefined"!=typeof $http,o="function"==typeof require&&!n,s=(()=>{if(o){const e=require("request");return{request:e}}return null})(),i=(e,s,i)=>{r&&$notify(e,s,i),t&&$notification.post(e,s,i),o&&a(e+s+i),n&&$push.schedule({title:e,body:s?s+"\n"+i:i})},u=(e,n)=>r?$prefs.setValueForKey(e,n):t?$persistentStore.write(e,n):void 0,d=e=>r?$prefs.valueForKey(e):t?$persistentStore.read(e):void 0,l=e=>(e&&(e.status?e.statusCode=e.status:e.statusCode&&(e.status=e.statusCode)),e),f=(e,i)=>{r&&("string"==typeof e&&(e={url:e}),e.method="GET",$task.fetch(e).then(e=>{i(null,l(e),e.body)},e=>i(e.error,null,null))),t&&$httpClient.get(e,(e,t,r)=>{i(e,l(t),r)}),o&&s.request(e,(e,t,r)=>{i(e,l(t),r)}),n&&("string"==typeof e&&(e={url:e}),e.header=e.headers,e.handler=function(e){let t=e.error;t&&(t=JSON.stringify(e.error));let r=e.data;"object"==typeof r&&(r=JSON.stringify(e.data)),i(t,l(e.response),r)},$http.get(e))},p=(e,i)=>{r&&("string"==typeof e&&(e={url:e}),e.method="POST",$task.fetch(e).then(e=>{i(null,l(e),e.body)},e=>i(e.error,null,null))),t&&$httpClient.post(e,(e,t,r)=>{i(e,l(t),r)}),o&&s.request.post(e,(e,t,r)=>{i(e,l(t),r)}),n&&("string"==typeof e&&(e={url:e}),e.header=e.headers,e.handler=function(e){let t=e.error;t&&(t=JSON.stringify(e.error));let r=e.data;"object"==typeof r&&(r=JSON.stringify(e.data)),i(t,l(e.response),r)},$http.post(e))},a=e=>console.log(e),y=(t={})=>{e?$done(t):$done()};return{isQuanX:r,isSurge:t,isJSBox:n,isRequest:e,notify:i,write:u,read:d,get:f,post:p,log:a,done:y}}
