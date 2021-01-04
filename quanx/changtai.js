@@ -65,6 +65,7 @@ function Checkin() {
     }
     $task.fetch(opts).then(
         (resp) => {
+            console.log(resp);
             const result = JSON.parse(resp.body)
             if (result.code == 0) {
                 $cmp.notify(appName, "", "签到成功！🎉")
