@@ -59,7 +59,7 @@ function Checkin() {
             'Content-Type': 'application/json',
             'Host' : "api.techmall.chamshare.cn"
         },
-        method: 'PUT',
+        method: 'POST',
         url: CheckinURL,
         body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
     }
