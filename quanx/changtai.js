@@ -10,7 +10,7 @@ Quantumult X:
 hostname = api.techmall.chamshare.cn
 
 */
-// const $cmp = compatibility()
+const $cmp = compatibility()
 const accessTokeName = 'changtaikey'
 const appName = "长泰广场"
 const CheckinURL = 'https://api.techmall.chamshare.cn/daysign/sign'
