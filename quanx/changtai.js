@@ -79,6 +79,7 @@ function Checkin() {
             }
         },
         (err) => {
+            console.log(err);
             $cmp.notify(appName,  "签到接口出错，详情请见日志。", err)
         }
     ) 
