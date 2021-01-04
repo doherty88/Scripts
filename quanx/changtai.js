@@ -10,7 +10,7 @@ Quantumult X:
 hostname = api.techmall.chamshare.cn
 
 */
-const $cmp = compatibility()
+// const $cmp = compatibility()
 const accessTokeName = 'changtaikey'
 const appName = "长泰广场"
 const CheckinURL = 'https://api.techmall.chamshare.cn/daysign/sign'
@@ -25,7 +25,8 @@ if ($cmp.isRequest) {
     $cmp.done()
 } else {
     Checkin()
-    $cmp.done()
+//     $cmp.done()
+    $done()
 }
 
 function GetToken() {
@@ -61,7 +62,8 @@ function Checkin() {
         },
         method: 'PUT',
         url: CheckinURL,
-        body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
+        body: '{"access_token":"12323123123"}'
+//         body: '{"access_token":"' + $cmp.read(accessTokeName) + '"}'
     }
     $task.fetch(opts).then(
         (resp) => {
