@@ -1,6 +1,7 @@
 const $cmp = compatibility()
 const CheckinURL = 'https://api.techmall.chamshare.cn/daysign/sign'
 const accessTokeName = 'changtaikey'
+const appName = "长泰广场"
 
 const url = CheckinURL;
 const method = "PUT";
@@ -18,14 +19,21 @@ const myRequest = {
 };
 
 $task.fetch(myRequest).then(response => {
-    // response.statusCode, response.headers, response.body
-    console.log(response.body);
-    $notify("Title", "Subtitle", response.body); // Success!
-    $done();
+            const result = JSON.parse(response.body)
+            if (result.code == 0) {
+                        $cmp.notify(appName, "", "签到成功！🎉")
+            } else if (result.code == 1101) {
+                        $cmp.notify(appName, "",  "重复签到！😊")
+            } else if (result.code == 2) {
+                        $cmp.notify(appName, "", "Token 失效❗ 请重新获取。️")
+            } else {
+                        console.log("Changtai failed response : \n" + result.msg)
+                        $cmp.notify(appName, "签到失败‼️ 详情请见日志。", result.msg);
+            }
+            $done();
 }, reason => {
-    // reason.error
-    $notify("Title", "Subtitle", reason.error); // Error!
-    $done();
+            $cmp.notify(appName, "请求失败‼️ 详情请见日志。", reason.error);
+            $done();
 });
 
 
