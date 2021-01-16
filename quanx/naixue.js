@@ -11,9 +11,8 @@ or remote
 1 0 * * * https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js
 
 [rewrite_local]
-^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/user url script-request-header Naixue.js
-or remote
-^https:\/\/webapi\.qmai\.cn\/web\/cy\/v\d\/store\/template-scene url script-request-header https://raw.githubusercontent.com/zZPiglet/Task/master/Naixue/Naixue.js
+^https:\/\/tm-api\.pin-dao\.cn\/home\/api\/user url script-request-header https://raw.githubusercontent.com/doherty88/Scripts/main/quanx/naixue.js
+
 
 
 All app:
